@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CatsModule } from './cats/cats.module';
-import { CoreModule } from './core/core.module';
+import { CoreModule } from './_core/core.module';
+import { TradingModule } from './trading/trading.module';
+import { BrokersModule } from './brokers/brokers.module';
 
 @Module({
-  imports: [CoreModule, CatsModule],
+  imports: [CoreModule, TradingModule, BrokersModule],
 })
 export class AppModule {}

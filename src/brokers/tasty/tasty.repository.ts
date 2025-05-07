@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { HttpService } from '../../_core/services/http.service';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class TastyTradeRepository {
@@ -9,11 +9,13 @@ export class TastyTradeRepository {
 
   async placeOrder(order: any): Promise<any> {
     const url = `${this.baseUrl}/orders`;
-    return this.httpService.post(url, order);
+    const response = await this.httpService.post(url, order).toPromise();
+    return response?.data;
   }
 
   async getMarketData(symbol: string): Promise<any> {
     const url = `${this.baseUrl}/market-data/${symbol}`;
-    return this.httpService.get(url);
+    const response = await this.httpService.get(url).toPromise();
+    return response?.data;
   }
 }

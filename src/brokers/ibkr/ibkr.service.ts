@@ -3,7 +3,7 @@ import { Broker } from '../broker.interface';
 import { IbkrRepository } from './ibkr.repository';
 
 @Injectable()
-export class InteractiveBrokersService implements Broker {
+export class IbkrService implements Broker {
   constructor(private readonly ibkrRepository: IbkrRepository) {}
 
   async placeOrder(order: any): Promise<any> {

@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios'; // Import HttpModule
 import { IbkrRepository } from './ibkr/ibkr.repository';
-import { InteractiveBrokersService } from './ibkr/ibkr.service';
-import { TastyTradeRepository } from './tasty/tasty.repository';
-import { TastyTradeService } from './tasty/tasty.service';
+import { IbkrService } from './ibkr/ibkr.service';
+import { TastyRepository } from './tasty/tasty.repository';
+import { TastyService } from './tasty/tasty.service';
 import { BrokerProviders } from './brokers.providers';
 
 @Module({
   imports: [HttpModule], // Add HttpModule here
   providers: [
     IbkrRepository,
-    InteractiveBrokersService,
-    TastyTradeRepository,
-    TastyTradeService,
+    IbkrService,
+    TastyRepository,
+    TastyService,
     ...BrokerProviders,
   ],
   exports: ['BROKER_MAP'],

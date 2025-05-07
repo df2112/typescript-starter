@@ -1,17 +1,17 @@
 import { Provider } from '@nestjs/common';
-import { TastyTradeService } from './tasty/tasty.service';
-import { InteractiveBrokersService } from './ibkr/ibkr.service';
+import { TastyService } from './tasty/tasty.service';
+import { IbkrService } from './ibkr/ibkr.service';
 
 export const BrokerProviders: Provider[] = [
   {
     provide: 'BROKER_MAP',
     useFactory: (
-      tastyTradeService: TastyTradeService,
-      ibService: InteractiveBrokersService,
+      tastyTradeService: TastyService,
+      ibService: IbkrService,
     ) => ({
       TastyTrade: tastyTradeService,
       InteractiveBrokers: ibService,
     }),
-    inject: [TastyTradeService, InteractiveBrokersService],
+    inject: [TastyService, IbkrService],
   },
 ];

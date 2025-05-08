@@ -6,11 +6,11 @@ export const BrokerProviders: Provider[] = [
   {
     provide: 'BROKER_MAP',
     useFactory: (
-      tastyTradeService: TastyService,
-      ibService: IbkrService,
+      tastyService: TastyService,
+      ibkrService: IbkrService,
     ) => ({
-      TastyTrade: tastyTradeService,
-      InteractiveBrokers: ibService,
+      TastyTrade: tastyService,
+      InteractiveBrokers: ibkrService,
     }),
     inject: [TastyService, IbkrService],
   },

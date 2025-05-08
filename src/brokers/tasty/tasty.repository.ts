@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class TastyRepository {
@@ -9,13 +10,13 @@ export class TastyRepository {
 
   async placeOrder(order: any): Promise<any> {
     const url = `${this.baseUrl}/orders`;
-    const response = await this.httpService.post(url, order).toPromise();
+    const response = await firstValueFrom(this.httpService.post(url, order));
     return response?.data;
   }
 
   async getMarketData(symbol: string): Promise<any> {
     const url = `${this.baseUrl}/market-data/${symbol}`;
-    const response = await this.httpService.get(url).toPromise();
+    const response = await firstValueFrom(this.httpService.get(url));
     return response?.data;
   }
 }

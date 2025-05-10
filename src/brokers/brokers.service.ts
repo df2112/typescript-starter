@@ -1,0 +1,23 @@
+import { Injectable } from '@nestjs/common';
+import { BrokerRepositoryFactory } from './broker.factory';
+import { Broker } from './broker.interface';
+
+@Injectable()
+export class BrokerService {
+  constructor(private readonly brokerRepositoryFactory: BrokerRepositoryFactory) {}
+
+  async createSession(broker: string, payload: any): Promise<any> {
+    const repository: Broker = this.brokerRepositoryFactory.getRepository(broker);
+    return repository.createSession(payload);
+  }
+
+  async placeOrder(broker: string, order: any): Promise<any> {
+    const repository: Broker = this.brokerRepositoryFactory.getRepository(broker);
+    return repository.placeOrder(order);
+  }
+
+  async getMarketData(broker: string, symbol: string): Promise<any> {
+    const repository: Broker = this.brokerRepositoryFactory.getRepository(broker);
+    return repository.getMarketData(symbol);
+  }
+}

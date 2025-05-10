@@ -13,6 +13,13 @@
     "baseUrl": "./",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@lib/*": ["lib/*"],
+      "@brokers/*": ["src/brokers/*"],
+      "@ibkr/*": ["src/brokers/ibkr/*"],
+      "@tasty/*": ["src/brokers/tasty/*"],
+    }
   }
 }

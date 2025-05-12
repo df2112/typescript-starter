@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Broker } from '../brokers/broker.interface';
 import { GetSessionTokenDto } from '@/_common/dtos/get-session-token.dto';
-import { BrokerService } from '@/brokers/brokers.service';
 import { BrokerFactory } from '@/brokers/broker.factory';
 import { LogMethod } from '@/_common/decorators/LogMethod';
 
@@ -21,7 +20,6 @@ export class TradingService {
     // if (!broker) {
     //   throw new Error(`Broker ${dto.broker} not supported`);
     // }
-    // return this.brokerService.createSession(dto.broker, dto);
   }
 
   async placeOrder(order: any, brokerName: string): Promise<any> {

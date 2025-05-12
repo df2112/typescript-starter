@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { PostSessions, SessionResponse } from '@lib/types/sessions';
 import { GetSessionTokenDto } from '@/_common/dtos/get-session-token.dto';
 import { Session } from 'inspector/promises';
+import { LogMethod } from '@/_common/decorators/LogMethod';
 
 @Injectable()
 export class TastyRepository {
@@ -11,11 +12,9 @@ export class TastyRepository {
 
   constructor(private readonly httpService: HttpService) {}
 
+  @LogMethod()
   async createSession(payload: GetSessionTokenDto): Promise<SessionResponse> {
     const url = `${this.baseUrl}/sessions`;
-
-    console.log(`\nTasty Repository: getSessionToken`);
-    console.log(`\nDTO: ${JSON.stringify(payload, null, 2)}`);
 
     const sessionResponseStub: SessionResponse = {
       user: {
@@ -30,9 +29,6 @@ export class TastyRepository {
       'session-expiration': '2025-05-19T12:00:00Z',
       'session-token': 'xyz987uvw654rst321',
     };
-
-    console.log(`\nTasty Repository: getSessionToken`);
-    console.log(`\nsessionResponseStub: ${JSON.stringify(sessionResponseStub, null, 2)}`);
 
     return sessionResponseStub;
 

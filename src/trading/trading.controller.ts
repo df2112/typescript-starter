@@ -3,6 +3,7 @@ import { TradingService } from './trading.service';
 import { PlaceOrderDto } from '../_common/dtos/place-order.dto';
 import { ResponseTransformerService } from '../_core/services/response-transformer.service';
 import { GetSessionTokenDto } from '@/_common/dtos/get-session-token.dto';
+import { LogMethod } from '@/_common/decorators/LogMethod';
 
 @Controller('trading')
 export class TradingController {
@@ -12,18 +13,11 @@ export class TradingController {
   ) {}
 
   @Get('session-token')
+  @LogMethod()
   async getSessionToken(@Query() dto: GetSessionTokenDto): Promise<any> {
     try {
-      console.log(`\nTrading Controller: getSessionToken`);
-      console.log(`\nDTO: ${JSON.stringify(dto, null, 2)}`);
-
       const sessionResponseStub =
         await this.tradingService.getSessionToken(dto);
-
-      console.log(`\nTrading Controller: getSessionToken`);
-      console.log(
-        `\nsessionResponseStub: ${JSON.stringify(sessionResponseStub, null, 2)}`,
-      );
 
       return sessionResponseStub;
 

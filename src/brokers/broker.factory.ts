@@ -4,7 +4,7 @@ import { IbkrRepository } from '@ibkr/ibkr.repository';
 import { Broker } from './broker.interface';
 
 @Injectable()
-export class BrokerRepositoryFactory {
+export class BrokerFactory {
   constructor(
     private readonly tastyRepository: TastyRepository,
     private readonly ibkrRepository: IbkrRepository,

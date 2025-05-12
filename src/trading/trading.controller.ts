@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query,  } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { TradingService } from './trading.service';
 import { PlaceOrderDto } from '../_common/dtos/place-order.dto';
 import { ResponseTransformerService } from '../_core/services/response-transformer.service';
@@ -16,10 +16,20 @@ export class TradingController {
     try {
       console.log(`\nTrading Controller: getSessionToken`);
       console.log(`\nDTO: ${JSON.stringify(dto, null, 2)}`);
-      return true;
 
-      const result = await this.tradingService.getSessionToken(dto);
-      return this.responseTransformer.transformSuccessResponse(result);
+      const sessionResponseStub =
+        await this.tradingService.getSessionToken(dto);
+
+      console.log(`\nTrading Controller: getSessionToken`);
+      console.log(
+        `\nsessionResponseStub: ${JSON.stringify(sessionResponseStub, null, 2)}`,
+      );
+
+      return sessionResponseStub;
+
+      return this.responseTransformer.transformSuccessResponse(
+        sessionResponseStub,
+      );
     } catch (error) {
       return this.responseTransformer.transformErrorResponse(error);
     }

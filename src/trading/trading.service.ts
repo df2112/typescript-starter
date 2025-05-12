@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Broker } from '../brokers/broker.interface';
-import { GetSessionTokenDto } from '@/_common/dtos/get-session-token.dto';
+import { GetSessionTokenDto } from '@/common/dtos/get-session-token.dto';
 import { BrokerFactory } from '@/brokers/broker.factory';
-import { LogMethod } from '@/_common/decorators/LogMethod';
+import { LogMethod } from '@/common/decorators/LogMethod';
 
 @Injectable()
 export class TradingService {

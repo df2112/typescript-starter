@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { PostSessions, SessionResponse } from '@lib/types/sessions';
-import { GetSessionTokenDto } from '@/_common/dtos/get-session-token.dto';
-import { Session } from 'inspector/promises';
-import { LogMethod } from '@/_common/decorators/LogMethod';
+import { PostSessions, SessionResponse } from '@/brokers/tasty/types/sessions';
+import { GetSessionTokenDto } from '@/common/dtos/get-session-token.dto';
+import { LogMethod } from '@/common/decorators/LogMethod';
 
 @Injectable()
 export class TastyRepository {
-  private readonly baseUrl = 'https://api.tastytrade.com/v1'; // Example base URL
+  private readonly baseUrl = 'https://api.cert.tastyworks.com'; // Example base URL
 
   constructor(private readonly httpService: HttpService) {}
 
@@ -16,25 +15,22 @@ export class TastyRepository {
   async createSession(payload: GetSessionTokenDto): Promise<SessionResponse> {
     const url = `${this.baseUrl}/sessions`;
 
-    const sessionResponseStub: SessionResponse = {
-      user: {
-        email: 'user@example.com',
-        'external-id': '12345',
-        'is-confirmed': 'true',
-        name: 'John Doe',
-        nickname: 'johnd',
-        username: 'johndoe',
-      },
-      'remember-token': 'abc123def456ghi789',
-      'session-expiration': '2025-05-19T12:00:00Z',
-      'session-token': 'xyz987uvw654rst321',
+    const postSessionsBody: PostSessions = {
+      login: 'dfoley5150',
+      password: 'X_iN62_U!FXwh2V',
+      'remember-me': true,
+      // 'remember-token': 'optional-token-if-needed'
     };
 
-    return sessionResponseStub;
-
     const response = await firstValueFrom(
-      this.httpService.post<SessionResponse>(url, payload),
+      this.httpService.post(url, postSessionsBody, {
+        headers: {
+          'User-Agent': 'tetrachord-backend/1.0.0',
+          'Content-Type': 'application/json',
+        },
+      }),
     );
+
     return response.data;
   }
 

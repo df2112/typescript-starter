@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TradingController } from './trading.controller';
 import { TradingService } from './trading.service';
 import { BrokersModule } from '../brokers/brokers.module';
-import { CoreModule } from '../_core/core.module';
+import { CoreModule } from '../core/core.module';
 
 @Module({
   imports: [BrokersModule, CoreModule], // Import dependencies

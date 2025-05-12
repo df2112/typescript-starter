@@ -1,9 +1,9 @@
 import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { TradingService } from './trading.service';
-import { PlaceOrderDto } from '../_common/dtos/place-order.dto';
-import { ResponseTransformerService } from '../_core/services/response-transformer.service';
-import { GetSessionTokenDto } from '@/_common/dtos/get-session-token.dto';
-import { LogMethod } from '@/_common/decorators/LogMethod';
+import { PlaceOrderDto } from '../common/dtos/place-order.dto';
+import { ResponseTransformerService } from '../core/services/response-transformer.service';
+import { GetSessionTokenDto } from '@/common/dtos/get-session-token.dto';
+import { LogMethod } from '@/common/decorators/LogMethod';
 
 @Controller('trading')
 export class TradingController {
@@ -14,25 +14,20 @@ export class TradingController {
 
   @Get('session-token')
   @LogMethod()
-  async getSessionToken(@Query() dto: GetSessionTokenDto): Promise<any> {
+  async getSessionToken(@Query() query: GetSessionTokenDto): Promise<any> {
     try {
-      const sessionResponseStub =
-        await this.tradingService.getSessionToken(dto);
-
-      return sessionResponseStub;
-
-      return this.responseTransformer.transformSuccessResponse(
-        sessionResponseStub,
-      );
+      const apiResponse = await this.tradingService.getSessionToken(query);
+      // const xxx = this.responseTransformer.transformSuccessResponse(apiResponse);
+      return apiResponse;
     } catch (error) {
       return this.responseTransformer.transformErrorResponse(error);
     }
   }
 
   @Post('place-order')
-  async placeOrder(@Body() order: PlaceOrderDto): Promise<any> {
+  async placeOrder(@Body() body: PlaceOrderDto): Promise<any> {
     try {
-      const result = await this.tradingService.placeOrder(order, order.broker);
+      const result = await this.tradingService.placeOrder(body, body.broker);
       return this.responseTransformer.transformSuccessResponse(result);
     } catch (error) {
       return this.responseTransformer.transformErrorResponse(error);

@@ -4,20 +4,29 @@ import { Broker } from './broker.interface';
 
 @Injectable()
 export class BrokerService {
-  constructor(private readonly brokerRepositoryFactory: BrokerRepositoryFactory) {}
+  constructor(
+    private readonly brokerRepositoryFactory: BrokerRepositoryFactory,
+  ) {}
 
   async createSession(broker: string, payload: any): Promise<any> {
-    const repository: Broker = this.brokerRepositoryFactory.getRepository(broker);
+    console.log(`\nBroker Service: getSessionToken`);
+    console.log(`\nDTO: ${JSON.stringify(payload, null, 2)}`);
+    return true;
+
+    const repository: Broker =
+      this.brokerRepositoryFactory.getRepository(broker);
     return repository.createSession(payload);
   }
 
   async placeOrder(broker: string, order: any): Promise<any> {
-    const repository: Broker = this.brokerRepositoryFactory.getRepository(broker);
+    const repository: Broker =
+      this.brokerRepositoryFactory.getRepository(broker);
     return repository.placeOrder(order);
   }
 
   async getMarketData(broker: string, symbol: string): Promise<any> {
-    const repository: Broker = this.brokerRepositoryFactory.getRepository(broker);
+    const repository: Broker =
+      this.brokerRepositoryFactory.getRepository(broker);
     return repository.getMarketData(symbol);
   }
 }

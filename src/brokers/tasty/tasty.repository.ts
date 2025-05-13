@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { PostSessions, SessionResponse } from '@/brokers/tasty/types/sessions';
@@ -9,15 +10,18 @@ import { LogMethod } from '@/common/decorators/LogMethod';
 export class TastyRepository {
   private readonly baseUrl = 'https://api.cert.tastyworks.com'; // Example base URL
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private configService: ConfigService,
+    private readonly httpService: HttpService,
+  ) {}
 
   @LogMethod()
   async createSession(payload: GetSessionTokenDto): Promise<SessionResponse> {
     const url = `${this.baseUrl}/sessions`;
 
     const postSessionsBody: PostSessions = {
-      login: 'dfoley5150',
-      password: 'X_iN62_U!FXwh2V',
+      login: this.configService.get<string>('LOGIN_USER')!,
+      password: this.configService.get<string>('LOGIN_PWD'),
       'remember-me': true,
       // 'remember-token': 'optional-token-if-needed'
     };

@@ -16,6 +16,10 @@ export class IbkrRepository {
     return response.data;
   }
 
+  async getCustomer(): Promise<any> {
+    return true;
+  }
+
   async placeOrder(order: any): Promise<any> {
     const url = `${this.baseUrl}/orders`;
     const response = await this.httpService.post(url, order).toPromise();

@@ -24,6 +24,18 @@ export class TradingController {
     }
   }
 
+  @Get('customer')
+  @LogMethod()
+  async getCustomer(@Query() query: GetSessionTokenDto): Promise<any> {
+    try {
+      const apiResponse = await this.tradingService.getCustomer(query);
+      // const xxx = this.responseTransformer.transformSuccessResponse(apiResponse);
+      return apiResponse;
+    } catch (error) {
+      return this.responseTransformer.transformErrorResponse(error);
+    }
+  }
+
   @Post('place-order')
   async placeOrder(@Body() body: PlaceOrderDto): Promise<any> {
     try {

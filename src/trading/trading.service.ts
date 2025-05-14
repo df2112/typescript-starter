@@ -22,6 +22,15 @@ export class TradingService {
     // }
   }
 
+  @LogMethod()
+  async getCustomer(dto: GetSessionTokenDto): Promise<any> {
+    const repository: Broker = this.brokerFactory.getRepository(dto.broker);
+    const sessionResponseStub = await repository.getCustomer();
+    return sessionResponseStub;
+
+    return true;
+  }
+
   async placeOrder(order: any, brokerName: string): Promise<any> {
     return true;
     // const broker = this.brokerMap[brokerName];

@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
+import { AxiosRequestConfig } from 'axios';
 import { firstValueFrom } from 'rxjs';
+
 import { Customer } from './types/accounts-and-customers';
 import { PostSessions, SessionResponse } from './types/users-and-sessions';
 import { GetSessionTokenDto } from '@/common/dtos/get-session-token.dto';
 import { LogMethod } from '@/common/decorators/LogMethod';
-import { AxiosRequestConfig } from 'axios';
 
 @Injectable()
 export class TastyRepository {
